@@ -15,7 +15,9 @@ const Login = () => {
         const {email, password} = data
         loginUser(email, password)
         .then(result =>{
-            console.log(result);
+            if(result.user){
+                
+            }
         })
         .catch(error =>{
             console.log(error);

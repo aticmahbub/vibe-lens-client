@@ -7,6 +7,7 @@ import Login from "../Pages/Shared/Login/Login";
 import Registration from "../Pages/Shared/Registration/Registration";
 import Products from "../Pages/Products/Products";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
         },
         {
             path: '/products',
-            element: <Products/>
+            element: <PrivateRoute><Products/></PrivateRoute>
         },
         {
             path: '/productDetails',
