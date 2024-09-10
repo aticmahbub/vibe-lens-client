@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../FirebaseProvider/FirebaseProvidee";
 
 const Login = () => {
+    const {createUser} = useContext(AuthContext)
+    console.log(createUser);
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row-reverse">
