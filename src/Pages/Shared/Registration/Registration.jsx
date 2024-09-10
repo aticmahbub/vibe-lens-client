@@ -1,11 +1,17 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../FirebaseProvider/FirebaseProvidee";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 
 const Registration = () => {
     const {createUser, user} = useAuth()
+
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location?.state
+
+
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
         const {email, password} =data

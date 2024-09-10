@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../FirebaseProvider/FirebaseProvidee";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../../../components/SocialLogin";
@@ -8,20 +8,25 @@ import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
 
-    const {loginUser} = useAuth()
+    const { loginUser } = useAuth()
 
+
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location?.state
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
-        const {email, password} = data
+        const { email, password } = data
+
         loginUser(email, password)
-        .then(result =>{
-            if(result.user){
-                
-            }
-        })
-        .catch(error =>{
-            console.log(error);
-        })
+            .then(result => {
+                if (result.user) {
+                    navigate(from)
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -36,13 +41,13 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="text" placeholder="email" className="input input-bordered" {...register("email")}/>
+                            <input type="text" placeholder="email" className="input input-bordered" {...register("email")} />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="text" placeholder="password" className="input input-bordered" {...register("password")}/>
+                            <input type="text" placeholder="password" className="input input-bordered" {...register("password")} />
                             <label className="label">
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
