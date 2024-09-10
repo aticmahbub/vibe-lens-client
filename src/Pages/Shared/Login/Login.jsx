@@ -2,14 +2,25 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../FirebaseProvider/FirebaseProvidee";
 import { useForm } from "react-hook-form";
+import SocialLogin from "../../../components/SocialLogin";
+import useAuth from "../../../hooks/useAuth";
 
 
 const Login = () => {
-    
 
+    const {loginUser} = useAuth()
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const onSubmit = data => {
+        const {email, password} = data
+        loginUser(email, password)
+        .then(result =>{
+            console.log(result);
+        })
+        .catch(error =>{
+            console.log(error);
+        })
+    }
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row-reverse">
@@ -40,7 +51,7 @@ const Login = () => {
                         <label className="label">
                             New here? <Link to="/registration" className="label-text-alt link link-hover">Create an account</Link>
                         </label>
-                        {/* <SocialLogin /> */}
+                        <SocialLogin />
                     </form>
                 </div>
             </div>
